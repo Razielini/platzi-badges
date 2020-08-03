@@ -1,0 +1,19 @@
+{
+  "name": "platzi-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Raziel Carvajal <razielco@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "logger": "0.0.1",
+    "mongodb": "^3.5.9",
+    "puppeteer": "^5.0.0"
+  }
+}
