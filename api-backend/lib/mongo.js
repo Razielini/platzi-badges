@@ -49,6 +49,12 @@ class MongoLib {
     });
   }
 
+  getAllByName(collection, courses) {
+    return this.connect().then((db) => {
+      return db.collection(collection).find({ name: { $in: courses } }).toArray();
+    });
+  }
+
   create(collection, data) {
     console.log('create ::', data)
     return this.connect()
