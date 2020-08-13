@@ -6,6 +6,11 @@ class RoutesService {
     this.mongoDB = new MongoLib();
   }
 
+  async get({ Id }) {
+    const item = await this.mongoDB.get(this.collection, Id)
+    return item || false
+  }
+
   async findByName({ name }) {
     const item = await this.mongoDB.findByName(this.collection, name);
     return item || false;

@@ -13,7 +13,7 @@ const getRoutesData = (DB_COURSES_URL) => new Promise(async (resolve, rejected) 
 
   // Other Variables
   const routeTimeInSeconds = 0
-  const TEST_RUN = true // DONT SAVE DATA ONLY RUN SCRAPER
+  const TEST_RUN = false // DONT SAVE DATA ONLY RUN SCRAPER
 
   // Open browser
   const browser = await puppeteer.launch({ headless: true });
@@ -130,6 +130,7 @@ const getRoutesData = (DB_COURSES_URL) => new Promise(async (resolve, rejected) 
             badge,
             name,
             level,
+            area: areaName,
             url: routeCourses[j],
             order: j + 1,
             lessons,
@@ -140,6 +141,7 @@ const getRoutesData = (DB_COURSES_URL) => new Promise(async (resolve, rejected) 
             badge,
             name,
             level,
+            area: areaName,
             url: routeCourses[j],
             order: j + 1,
             lessons,

@@ -42,7 +42,7 @@ const getCourseData = (COURSES_URL, LOGIN_USER, LOGIN_PASS) => new Promise(async
   for (let j = 0; j < useCourses.length; j++) {
     try {
       console.info(`[INIT] COURSE [${j}/${useCourses.length}] `, useCourses[j])
-      await page.goto(useCourses[j], { waitUntil, timeout })
+      await page.goto(useCourses[j].course, { waitUntil, timeout })
 
       const { badge, name, level } = await page.evaluate(async () => {
         const badge = document.querySelector('figure.CourseDetail-left-figure img').src
@@ -92,6 +92,7 @@ const getCourseData = (COURSES_URL, LOGIN_USER, LOGIN_PASS) => new Promise(async
         badge,
         name,
         level,
+        area: useCourses[j].area,
         url: useCourses[j],
         order: j + 1,
         lessons,
@@ -102,6 +103,7 @@ const getCourseData = (COURSES_URL, LOGIN_USER, LOGIN_PASS) => new Promise(async
         badge,
         name,
         level,
+        area: useCourses[j].area,
         url: useCourses[j],
         order: j + 1,
         lessons,

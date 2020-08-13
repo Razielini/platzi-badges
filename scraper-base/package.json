@@ -12,7 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "logger": "0.0.1",
     "mongodb": "^3.5.9",
     "puppeteer": "^5.0.0"
   }

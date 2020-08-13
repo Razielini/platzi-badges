@@ -39,6 +39,12 @@ class MongoLib {
     return MongoLib.connection;
   }
 
+  get(collection, id) {
+    return this.connect().then((db) => {
+      return db.collection(collection).findOne({ _id: ObjectID(id) });
+    });
+  }
+
   /* Find a record using the NAME tag */
   findByName(collection, name) {
     return this.connect().then((db) => {
