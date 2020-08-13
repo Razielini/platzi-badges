@@ -1,4 +1,4 @@
-const config = {
+const CONFIG = {
   width: 495,
   height: 250,
   platziTitle: 'Platzi Stats',
@@ -8,7 +8,7 @@ const config = {
   bg_color: 'fffefe',
 }
 
-const createBadge = (profile) => {
+const createBadge = (resume, profileName) => {
   const {
     width,
     height,
@@ -17,16 +17,18 @@ const createBadge = (profile) => {
     icon_color,
     text_color,
     bg_color
-  } = config
+  } = CONFIG
 
   const {
-    name,
-    profileName,
-    coursesFinished,
+    coursesTotal,
+    lessons,
+    hours,
+    minutes,
+    seconds,
     platziPoints,
     platziQuestions,
     platziAnswers
-  } = profile
+  } = resume
 
   const badge = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none">
   <style>
@@ -129,7 +131,7 @@ const createBadge = (profile) => {
   </svg>
 
     <text class="stat bold" x="25" y="12.5">Total Courses:</text>
-    <text class="stat" x="200" y="12.5" data-testid="stars">${coursesFinished.coursesTotal}</text>
+    <text class="stat" x="200" y="12.5" data-testid="stars">${coursesTotal}</text>
   </g>
   </g><g transform="translate(0, 25)">
   <g class="stagger" style="animation-delay: 600ms" transform="translate(25, 0)">
@@ -139,7 +141,7 @@ const createBadge = (profile) => {
   </svg>
 
     <text class="stat bold" x="25" y="12.5">Total Lessons:</text>
-    <text class="stat" x="200" y="12.5" data-testid="commits">${coursesFinished.lessons}</text>
+    <text class="stat" x="200" y="12.5" data-testid="commits">${lessons}</text>
   </g>
   </g><g transform="translate(0, 50)">
   <g class="stagger" style="animation-delay: 750ms" transform="translate(25, 0)">
@@ -149,7 +151,7 @@ const createBadge = (profile) => {
   </svg>
 
     <text class="stat bold" x="25" y="12.5">Total Study time:</text>
-    <text class="stat" x="200" y="12.5" data-testid="prs">${coursesFinished.hours} H ${coursesFinished.minutes} M ${coursesFinished.seconds} S</text>
+    <text class="stat" x="200" y="12.5" data-testid="prs">${hours} H ${minutes} M ${seconds} S</text>
   </g>
   </g><g transform="translate(0, 75)">
   <g class="stagger" style="animation-delay: 900ms" transform="translate(25, 0)">

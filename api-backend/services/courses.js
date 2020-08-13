@@ -6,6 +6,9 @@ class CoursesService {
     this.mongoDB = new MongoLib();
   }
 
+  /*
+    Convert Simply Courses List to Courses Info
+  */
   async compareCourses(courses) {
     const item = await this.mongoDB.getAllByName(this.collection, courses);
     console.log('item :: ', item.length)
@@ -18,12 +21,20 @@ class CoursesService {
       seconds: 0,
       lessons: totalLessons,
       coursesInfo: item,
-      coursesTotal: courses.length
+      coursesTotal: courses.length,
+      courses
     }
 
-    info.minutes = Math.floor((courseTime - (info.hours * 3600)) / 60)
-    info.seconds = courseTime - ((info.hours * 3600) + (info.minutes * 60))
+    info = await this.calculateCoursesTime(info);
     return info;
+  }
+
+  async calculateCoursesTime (info, ) {
+    const { totalTimeSeconds, hours, } = info
+    info.minutes = Math.floor((totalTimeSeconds - (hours * 3600)) / 60)
+    info.seconds = totalTimeSeconds - ((hours * 3600) + (info.minutes * 60))
+
+    return info
   }
 }
 

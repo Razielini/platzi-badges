@@ -39,17 +39,49 @@ function profileApi(app) {
             profileInfo
               .getProfileInfo(profileName)
               .then(async (data) => {
-                const { coursesFinished } = data
-                // console.log('getProfileInfo:: ', data)
-                data.coursesFinished = await coursesService.compareCourses(coursesFinished)
+                const { platziAnswers, platziPoints, platziQuestions, flag, ownProjects, avatar } = data
+                console.log('getProfileInfo:: ', data)
+                data.coursesFinished = await coursesService.compareCourses(data.coursesFinished)
+
+                const { coursesTotal, hours, lessons, minutes, seconds, totalTimeSeconds } = data.coursesFinished
+
+                /* GET COUNTRY FROM FLAG */
+                /* EXAMPLE: https://static.platzi.com/media/flags/MX.png */
+                const regExpCountry = /([a-zA-Z]{2}).png$/i;
+                let country = flag.match(regExpCountry)[1]
+
+                /* GET USER IMAGE FROM AVATAR */
+                /* EXAMPLE: https://static.platzi.com/media/avatars/avatars/raziel.carvajal_5a1f0166-887a-492d-8cc0-dab375b4a7ec.jpg */
+                /* DOUBLE   '/avatars/avatars/' in URL */
+                const regExpAvatar = /(avatars\/){2}(\S+).jpg$/i;
+                let userAvatar = avatar.match(regExpAvatar)[2];
+
+                const resume = {
+                  platziAnswers,
+                  platziPoints,
+                  platziQuestions,
+                  coursesTotal,
+                  hours,
+                  lessons,
+                  minutes,
+                  seconds,
+                  totalTimeSeconds,
+                  ownProjects
+                }
 
                 const saveProfile = {
                   name: data.name,
-                  profileName: profileName,
-                  scrapers: [{
-                    ...data,
-                    created_at: new Date()
-                  }]
+                  avatar: userAvatar,
+                  profileName,
+                  country,
+                  resume,
+                  updated_at: new Date(),
+                  scrapers: [
+                    {
+                      resume,
+                      created_at: new Date(),
+                    }
+                  ]
                 }
 
                 console.log('END OF INFO:: ', saveProfile)
@@ -60,7 +92,7 @@ function profileApi(app) {
 
                 existProfile = await profilesService.findByName(profileName);
 
-                const svg = createBadge(existProfile.scrapers[existProfile.scrapers.length - 1])
+                const svg = createBadge(existProfile.resume, existProfile.profileName)
                 fs.writeFileSync (path.resolve(`./results/${existProfile._id}.svg`), svg, 'utf8', function (err) {
                   if (err) return console.log(err);
                   console.log('Created > ${existProfile._id}.svg');
@@ -76,7 +108,7 @@ function profileApi(app) {
         } else {
           console.log('Serve Info::', existProfile)
 
-          const svg = createBadge(existProfile.scrapers[existProfile.scrapers.length - 1])
+          const svg = createBadge(existProfile.resume, existProfile.profileName)
           fs.writeFileSync (path.resolve(`./results/${existProfile._id}.svg`), svg, 'utf8', function (err) {
             if (err) return console.log(err);
             console.log('Created > ${existProfile._id}.svg');

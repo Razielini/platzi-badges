@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 const getProfileInfo = async (profile) => {
 
-  const waitUntil = 'networkidle0'
+  const waitUntil = 'domcontentloaded'
   const timeout = 0
 
   // Open browser
@@ -64,7 +64,7 @@ const getProfileInfo = async (profile) => {
         }).filter((projectInfo) => projectInfo.name.indexOf('%') === -1));
     } // WAIT FOR SELECTOR
   } catch (error) {
-    console.log('Error Click Own Projects:: ', error)
+    console.log('[NO OWN PROJECTS] Error Click Own Projects:: ', error)
   }
 
   await browser.close()
