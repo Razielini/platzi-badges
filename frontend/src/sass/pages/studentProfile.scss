@@ -1,0 +1,71 @@
+.student-profile {
+  width: inherit;
+
+  .resume {
+    display: grid;
+    grid-template-columns: 30% 60%;
+    grid-column-gap: 20px;
+    justify-content: center;
+    width: -webkit-fill-available;
+
+    &__stats {
+      margin-top: -40px;
+
+      &--options {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    img.avatar {
+      border-radius: 50%;
+    }
+  }
+
+  .courses-areas {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.PlatziStats__container {
+  display: grid;
+  grid-template-rows: repeat(3, min_max(100px, 200px));
+
+  p {
+    margin: 0;
+  }
+
+  &--platform {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &--courses {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &--time {
+    display: grid;
+    grid-template-columns: 40% 60%;
+  }
+
+  .PlatziStats__container {
+    &--level-description {
+      display: grid;
+      grid-template-columns: 30% 60%;
+      grid-column-gap: 20px;
+      justify-content: center;
+      width: -webkit-fill-available;
+    }
+
+    &--level-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+  }
+
+
+}

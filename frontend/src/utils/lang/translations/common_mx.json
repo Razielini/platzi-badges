@@ -1,0 +1,19 @@
+{
+  "welcome": "Bienvenido",
+  "languaje": "Idioma",
+  "day": "Día",
+  "night": "Noche",
+  "points": "puntos",
+  "questions": "preguntas",
+  "answers": "respuestas",
+  "courses": "cursos",
+  "lessons": "clases",
+  "studytime": "tiempo de estudio",
+  "platzistats": "Estadísticas de Platzi",
+  "time": "Tiempo",
+  "basic": "Basico",
+  "intermediate": "Intermedio",
+  "advanced ": "Avanzado",
+  "search ": "Buscar",
+  "placeholder-input": "perfil.usuario"
+}

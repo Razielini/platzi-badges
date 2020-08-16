@@ -1,0 +1,19 @@
+.Topbar {
+  display: grid;
+  grid-template-columns: 10% 1fr 10%;
+  grid-column-gap: 20px;
+  margin: 0;
+
+  &__container {
+    max-width: 1280px;
+    grid-column-start: 2;
+
+    nav ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-items: end;
+
+      list-style-type: none;
+    }
+  }
+}
