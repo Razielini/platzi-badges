@@ -36,7 +36,6 @@ const StudentProfile = (props) => {
         console.log('data::', data)
         setData(data.data);
         setState(SUCCESS);
-        //console.log(data.data)
 
         data.data.scrapers.map((scrap) => {
           scrap.courses.map((courseName) => {
@@ -102,7 +101,7 @@ const StudentProfile = (props) => {
     fetch(`http://localhost:8000/profile/${profileName}`)
       .then((response) => response.blob())
       .then((data) => {
-        console.log('data::', data)
+        //console.log('data::', data)
         setBadge(data.data);
         //setState(SUCCESS);
         //console.log(data.data)
@@ -248,93 +247,3 @@ const StudentProfile = (props) => {
 };
 
 export default StudentProfile
-
-/*
-import React, { Component, useState, useEffect } from 'react'
-import './../sass/pages/studentProfile.scss'
-import CARD_BASE from './../__MOCKS__/images/card_base.png'
-
-class studentProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getInfo()
-    this.state = {
-      userProfile: this.props.match.params.profileName,
-      data: null
-    };
-  }
-
-  getInfo = async () => {
-    try {
-      fetch('http://localhost:8000/api/profile/@raziel.carvajal')
-        .then(response => response.json())
-        .then(json => {
-          this.state.data = json
-          console.log('json::', json)
-          console.log('state::', this.state)
-        })
-    } catch (error) {
-      // TODO: Propper error handling
-      console.error(error);
-      console.log('Ups, parece que tienes credenciales incorrectos');
-    }
-  };
-
-  useEffect((e) => {
-    try {
-      fetch('http://localhost:8000/api/profile/@raziel.carvajal')
-        .then(response => response.json())
-        .then(json => {
-          this.state.data = json
-          console.log('json::', json)
-          console.log('state::', this.state)
-        })
-    } catch (error) {
-      // TODO: Propper error handling
-      console.error(error);
-      console.log('Ups, parece que tienes credenciales incorrectos');
-    }
-  }, []);
-
-
-
-  render () {
-    return (
-      <div className="student-profile">
-        <div className="resume">
-          <div>
-            <img
-              className="avatar"
-              src="https://static.platzi.com/media/avatars/avatars/raziel.carvajal_5a1f0166-887a-492d-8cc0-dab375b4a7ec.jpg"
-              alt="Profile"
-            />
-
-            Raziel carvajal
-            @raziel.carvajal
-            { this.state.data && <p>State Ready</p> }
-
-
-            <div className="sidebar">
-              <p>Total</p>
-            </div>
-          </div>
-          <div>
-            { this.state.userProfile ? 'YES PARAMS' : 'NO PARAMS' }
-            <img src={CARD_BASE} alt="stats-card-base" />
-          </div>
-        </div>
-        <div className="courses-areas">
-          <p>Desarrollo e Ingenieria</p>
-          <p>Diseño y UX</p>
-          <p>Marketing</p>
-          <p>Negocios y emprendimiento</p>
-          <p>Producción audiovisual</p>
-          <p>Crecimiento Profesional</p>
-        </div>
-      </div>
-    )
-  }
-}
-
-export default studentProfile
-*/
