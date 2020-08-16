@@ -5,6 +5,8 @@ import Loading from '../components/loading';
 import Error from '../components/error';
 import searchSVG from '../assets/search.svg'
 import { useHistory } from "react-router-dom";
+import { API_URL } from '../config'
+
 
 const STATES_API = {
   LOADING: 'LOADING',
@@ -30,7 +32,7 @@ const StudentProfile = (props) => {
 
   React.useEffect(() => {
     setState(LOADING);
-    fetch(`http://localhost:8000/api/profile/${profileName}`)
+    fetch(`${API_URL}/${profileName}`)
       .then((response) => response.json())
       .then((data) => {
         console.log('data::', data)
