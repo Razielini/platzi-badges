@@ -36,6 +36,16 @@ function apiService(app) {
             profileInfo
               .getProfileInfo(profileName)
               .then(async (data) => {
+                if(!data.success) {
+                  if(data.error === "NOT_FOUND") {
+                    return res.status(404).json({
+                      data: {
+                        error: "NOT_FOUND"
+                      },
+                      success: false
+                    });
+                  }
+                }
 
                 // FORMAT ALL DATA TO SAVE TO DB
                 console.log(`[FORMAT SCRAPY DATA] ${profileName}`)

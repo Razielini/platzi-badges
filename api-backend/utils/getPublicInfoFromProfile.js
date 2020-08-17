@@ -20,12 +20,22 @@ const getProfileInfo = async (profile) => {
   //Click on see more to see all courses
   console.log(`Puppeter GO TO:: https://platzi.com/${profile}`)
 
-  const coursesFinished = await page.evaluate(() => Array.from (document.querySelectorAll('div.Course-title'), element => element.innerText))
+  const title = await page.evaluate(() => document.querySelector('title').innerHTML);
+
+  if(title.search("404") > 0 || title.search("Privada")) {
+    console.log("NOT_FOUND")
+    return {
+      error: "NOT_FOUND",
+      success: false
+    }
+  }
 
   //Retrieve user avatar
   const avatar = await page.evaluate(() => document.querySelector('figure.ProfileHeader-avatar img').src);
   const name = await page.evaluate(() => document.querySelector('h1.ProfileHeader-name').innerHTML);
   const flag = await page.evaluate(() => document.querySelector('img.ProfileHeader-flag').src);
+
+  const coursesFinished = await page.evaluate(() => Array.from (document.querySelectorAll('div.Course-title'), element => element.innerText))
 
   console.log('Avatar ::', avatar)
 
@@ -78,7 +88,8 @@ const getProfileInfo = async (profile) => {
     platziPoints: scores[0],
     platziQuestions: scores[1],
     platziAnswers: scores[2],
-    ownProjects: ownProjects.length
+    ownProjects: ownProjects.length,
+    success: true
   }
 }
 
