@@ -3,6 +3,7 @@ import useTranslation from '../utils/lang';
 import './../sass/pages/studentProfile.scss';
 import Loading from '../components/loading';
 import Error from '../components/error';
+import BackToHome from '../components/backToHome';
 import searchSVG from '../assets/search.svg'
 import { useHistory } from "react-router-dom";
 import { API_URL } from '../config'
@@ -12,9 +13,10 @@ const STATES_API = {
   LOADING: 'LOADING',
   SUCCESS: 'SUCCESS',
   ERROR: 'ERROR',
+  NOT_FOUND: 'NOT_FOUND',
 };
 
-const { LOADING, SUCCESS, ERROR } = STATES_API
+const { LOADING, SUCCESS, ERROR, NOT_FOUND } = STATES_API
 
 const StudentProfile = (props) => {
   const profileName = props.match.params.profileName
@@ -35,27 +37,26 @@ const StudentProfile = (props) => {
     fetch(`${API_URL}/${profileName}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('data::', data)
         setData(data.data);
-        setState(SUCCESS);
-
-        data.data.scrapers.map((scrap) => {
-          scrap.courses.map((courseName) => {
-            let found = false
-            //console.log(courseName)
-            scrap.coursesInfo.map((course) => {
-              //console.log(course.name)
-              if(courseName === course.name) {
-                found = true
+        if (!data.success) {
+          console.log('NOT_FOUND::', data.success)
+          setState(NOT_FOUND);
+        } else {
+          setState(SUCCESS);
+          data.data.scrapers.map((scrap) => {
+            scrap.courses.map((courseName) => {
+              let found = false
+              scrap.coursesInfo.map((course) => {
+                if(courseName === course.name) {
+                  found = true
+                }
+              })
+              if(!found) {
+                console.log(courseName)
               }
             })
-            if(!found) {
-              console.log(courseName)
-            }
           })
-        })
-
-
+        }
       })
       .catch((e) => {
         setState(ERROR);
@@ -66,6 +67,8 @@ const StudentProfile = (props) => {
     return <Loading />;
   } else if (state === ERROR) {
     return <Error />;
+  } else if (state === NOT_FOUND) {
+    return <BackToHome />;
   } if (state !== SUCCESS) {
     return <p>Not Yet</p>;
   }
@@ -97,20 +100,6 @@ const StudentProfile = (props) => {
 
     console.log('Reducer:: ', result)
     return result
-  }
-
-  const handleBadge = () => {
-    fetch(`http://localhost:8000/profile/${profileName}`)
-      .then((response) => response.blob())
-      .then((data) => {
-        //console.log('data::', data)
-        setBadge(data.data);
-        //setState(SUCCESS);
-        //console.log(data.data)
-      })
-      .catch((e) => {
-        setState(ERROR);
-      });
   }
 
   const resumeLevel = reduceLevelCourses(scrapers)
